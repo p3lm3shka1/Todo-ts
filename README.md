@@ -2,6 +2,8 @@
 
 A simple **Todo List** project built for practice and portfolio purposes.
 
+Live (Production): https://todo-ts-prod.vercel.app
+
 This repository contains two parts:
 
 - **`client/`** — Frontend built with **Vite**, **React**, **TypeScript**, and **SCSS**
