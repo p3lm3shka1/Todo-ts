@@ -1,0 +1,25 @@
+@use "./variables" as *;
+
+.todo-wrapper {
+  width: 540px;
+  margin: -15rem auto 0;
+  max-width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: map-get($space, 5);
+
+  h1 {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: 15px;
+    color: $white;
+    font-weight: $font-w-700;
+  }
+}

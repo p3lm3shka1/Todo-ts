@@ -1,0 +1,32 @@
+@use "./variables" as *;
+
+@mixin apply-theme($theme-map) {
+  @each $token, $value in $theme-map {
+    --#{$token}: #{$value};
+  }
+}
+
+.app {
+  min-height: 100vh;
+  font-family: $font-primary;
+  font-weight: $font-w-400;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+@each $theme-name, $theme-map in $themes {
+  .app.#{$theme-name} {
+    @include apply-theme($theme-map);
+  }
+}
+
+.hero {
+  height: 20rem;
+  background-image: var(--hero-bg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+}

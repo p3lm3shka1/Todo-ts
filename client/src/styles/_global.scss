@@ -1,0 +1,15 @@
+@use "./variables" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: $font-primary;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+}

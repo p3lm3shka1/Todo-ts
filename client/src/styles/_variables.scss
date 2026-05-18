@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+
+$font-primary: "Josefin Sans", sans-serif;
+$font-w-400: 400;
+$font-w-700: 700;
+
+$blue-500: hsl(220, 98%, 61%);
+$check: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+
+$white: #fff;
+
+// light
+$gray-50: hsl(0, 0%, 98%);
+$gray-100: hsl(236, 33%, 92%);
+$gray-300: hsl(233, 11%, 84%);
+$gray-600: hsl(236, 9%, 61%);
+$navy-850: hsl(235, 19%, 35%);
+
+// dark
+$navy-950: hsl(235, 21%, 11%);
+$navy-900: hsl(235, 24%, 19%);
+$purple-300: hsl(234, 39%, 85%);
+$purple-600: hsl(235, 16%, 43%);
+$purple-700: hsl(233, 14%, 35%);
+$purple-800: hsl(237, 14%, 26%);
+$purple-100-hover: hsl(236, 33%, 92%);
+
+//spacing
+$space: (
+  0: 0,
+  1: 0.5rem,
+  2: 1rem,
+  3: 1.5rem,
+  4: 2rem,
+  5: 2.5rem,
+  6: 3rem,
+  7: 3.5rem,
+);
+
+//themes
+$themes: (
+  dark: (
+    bg-page: $navy-950,
+    bg-card: $navy-900,
+    text-primary: $purple-300,
+    text-muted: $purple-600,
+    text-hover: $purple-100-hover,
+    border-color: $purple-800,
+    filter-inactive: $purple-700,
+    accent: $blue-500,
+    check-bg: $check,
+    hero-bg: url("../assets/images/bg-mobile-light.jpg"),
+    hero-bg-mobile: url("../assets/images/bg-mobile-dark.jpg"),
+  ),
+  light: (
+    bg-page: $gray-50,
+    bg-card: $white,
+    text-primary: $navy-850,
+    text-muted: $gray-600,
+    text-hover: $navy-850,
+    border-color: $gray-300,
+    filter-inactive: $gray-600,
+    accent: $blue-500,
+    check-bg: $check,
+    hero-bg: url("../assets/images/bg-desktop-light.jpg"),
+    hero-bg-mobile: url("../assets/images/bg-mobile-light.jpg"),
+  ),
+);

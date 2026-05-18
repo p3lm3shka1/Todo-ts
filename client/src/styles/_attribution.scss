@@ -1,0 +1,16 @@
+@use "./variables" as *;
+
+.attribution {
+  margin: map-get($map: $space, $key: 4);
+  color: var(--text-primary);
+  text-align: center;
+
+  a {
+    opacity: 0.8;
+    text-decoration: none;
+    color: var(--accent);
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
