@@ -1,7 +1,6 @@
-import dotenv from "dotenv";
-dotenv.config();
 import express from "express";
 import cors from "cors";
+import type { Request, Response } from "express";
 
 type Todo = {
   id: string;
@@ -14,21 +13,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (_req, res) => {
+app.get("/", (_req: Request, res: Response) => {
   res.send("Todo API is running. Try /api/health or /api/todos");
 });
 
-app.get("/api/health", (_req, res) => {
+app.get("/api/health", (_req: Request, res: Response) => {
   res.json({ ok: true });
 });
 
 let todos: Todo[] = [];
 
-app.get("/api/todos", (_req, res) => {
+app.get("/api/todos", (_req: Request, res: Response) => {
   res.json(todos);
 });
 
-app.post("/api/todos", (req, res) => {
+app.post("/api/todos", (req: Request, res: Response) => {
   const text = String(req.body?.text ?? "").trim();
   if (!text) return res.status(400).json({ error: "text is required" });
 
