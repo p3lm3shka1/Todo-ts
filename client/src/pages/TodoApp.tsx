@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import TodoInput from "../components/TodoInput";
 import TodoList from "../components/TodoList";
@@ -11,10 +11,25 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import type { Todo, Filter } from "../types/todo";
 import type { Theme } from "../types/ui";
 
+import {
+  fetchTodos,
+  createTodo,
+  patchTodo,
+  deleteTodoApi,
+  clearCompletedApi,
+} from "../api/todos";
+
 const TodoApp = () => {
-  const [todos, setTodos] = useLocalStorage<Todo[]>("todos", []);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useLocalStorage<Filter>("filter", "all");
   const [theme, setTheme] = useLocalStorage<Theme>("theme", "dark");
+
+  // load todos
+  useEffect(() => {
+    fetchTodos()
+      .then(setTodos)
+      .catch((e) => console.error("Failed to load todos:", e));
+  }, []);
 
   const filteredTodos = useMemo(() => {
     if (filter === "active") return todos.filter((t) => !t.completed);
@@ -26,27 +41,64 @@ const TodoApp = () => {
     return todos.filter((t) => !t.completed).length;
   }, [todos]);
 
-  const addTodo = (text: string) => {
+  const addTodo = async (text: string) => {
     const trimmed = text.trim();
     if (!trimmed) return;
 
-    const id = String(Date.now());
-
-    setTodos((prev) => [{ id, text: trimmed, completed: false }, ...prev]);
+    try {
+      const created = await createTodo(trimmed);
+      setTodos((prev) => [created, ...prev]);
+    } catch (e) {
+      console.error("Failed to create todo:", e);
+    }
   };
 
-  const toggleTodo = (id: string) => {
+  const toggleTodo = async (id: string) => {
+    const current = todos.find((t) => t.id === id);
+    if (!current) return;
+
+    // optimistic update
     setTodos((prev) =>
       prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)),
     );
+
+    try {
+      const updated = await patchTodo(id, { completed: !current.completed });
+      setTodos((prev) => prev.map((t) => (t.id === id ? updated : t)));
+    } catch (e) {
+      console.error("Failed to toggle todo:", e);
+      // rollback
+      setTodos((prev) =>
+        prev.map((t) =>
+          t.id === id ? { ...t, completed: current.completed } : t,
+        ),
+      );
+    }
   };
 
-  const deleteTodo = (id: string) => {
-    setTodos((prev) => prev.filter((t) => t.id !== id));
+  const deleteTodo = async (id: string) => {
+    // optimistic
+    const prev = todos;
+    setTodos((p) => p.filter((t) => t.id !== id));
+
+    try {
+      await deleteTodoApi(id);
+    } catch (e) {
+      console.error("Failed to delete todo:", e);
+      setTodos(prev);
+    }
   };
 
-  const clearCompleted = () => {
-    setTodos((prev) => prev.filter((t) => !t.completed));
+  const clearCompleted = async () => {
+    const prev = todos;
+    setTodos((p) => p.filter((t) => !t.completed));
+
+    try {
+      await clearCompletedApi();
+    } catch (e) {
+      console.error("Failed to clear completed:", e);
+      setTodos(prev);
+    }
   };
 
   const toggleTheme = () => {
