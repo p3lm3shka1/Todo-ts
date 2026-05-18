@@ -23,9 +23,9 @@
   height: 64px;
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 0 24px;
-  margin-bottom: 24px;
+  gap: $space-1-5;
+  padding: 0 $space-1-5;
+  margin-bottom: $space-1-5;
 
   .circle {
     width: 24px;
@@ -66,8 +66,8 @@
   height: 64px;
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 0 24px;
+  gap: $space-1-5;
+  padding: 0 $space-1-5;
   border-bottom: 1px solid var(--border-color);
 
   .todo-text {
@@ -124,7 +124,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 $space-1-5;
   font-size: 14px;
   color: var(--text-muted);
 }
@@ -132,7 +132,7 @@
 .filters {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: $space-1-5;
 
   button {
     @extend %btn-reset;

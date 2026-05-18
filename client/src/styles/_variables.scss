@@ -37,6 +37,15 @@ $space: (
   7: 3.5rem,
 );
 
+$space-0: 0;
+$space-0-5: 0.5rem;
+$space-1: 1rem;
+$space-1-5: 1.5rem;
+$space-2: 2rem;
+$space-2-5: 2.5rem;
+$space-3: 3rem;
+$space-3-5: 3.5rem;
+
 //themes
 $themes: (
   dark: (
@@ -49,7 +58,7 @@ $themes: (
     filter-inactive: $purple-700,
     accent: $blue-500,
     check-bg: $check,
-    hero-bg: url("../assets/images/bg-mobile-light.jpg"),
+    hero-bg: url("../assets/images/bg-mobile-dark.jpg"),
     hero-bg-mobile: url("../assets/images/bg-mobile-dark.jpg"),
   ),
   light: (
