@@ -1,7 +1,7 @@
 @use "./variables" as *;
 
 .attribution {
-  margin: map-get($map: $space, $key: 4);
+  margin: map.get($space, 4);
   color: var(--text-primary);
   text-align: center;
 
