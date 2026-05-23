@@ -118,6 +118,19 @@
   }
 }
 
+.auth-logout {
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
 @media (max-width: 600px) {
   .auth-card__inner {
     padding: $space-1-5;
