@@ -17,10 +17,9 @@ app.get("/", (_req, res) => {
   res.send("IT'S ALIVE!");
 });
 
-app.get("/health", (_req, res) => {
-  res.json({ status: "ok" });
+app.get("/api/health", (_req, res) => {
+  res.json({ ok: true });
 });
-
 app.use("/api/auth", authRoutes);
 app.use("/api/todos", todoRoutes);
 
