@@ -4,12 +4,14 @@ import Todo from "../models/Todo.js";
 export const getTodos = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
+    console.log("GET /api/todos userId =", userId);
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
     const todos = await Todo.find({ user: userId }).sort({ createdAt: -1 });
+    console.log("GET /api/todos count =", todos.length);
 
     return res.status(200).json(todos);
   } catch (error) {
@@ -22,6 +24,7 @@ export const createTodo = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
     const text = String(req.body.text || "").trim();
+    console.log("POST /api/todos userId =", userId, "text =", text);
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -30,6 +33,7 @@ export const createTodo = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Enter some text" });
     }
     const todo = await Todo.create({ text, user: userId });
+    console.log("POST /api/todos created todoId =", todo._id);
     return res.status(201).json(todo);
   } catch (error) {
     console.error("Todo's error:", error);
@@ -41,6 +45,7 @@ export const updateTodo = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
     const { id } = req.params;
+    console.log("PATCH /api/todos/:id userId =", userId, "todoId =", id);
 
     if (!userId) {
       return res.status(401).json({ message: "Not authorized" });
@@ -73,6 +78,7 @@ export const deleteTodo = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
     const { id } = req.params;
+    console.log("DELETE /api/todos/:id userId =", userId, "todoId =", id);
 
     if (!userId) {
       return res.status(401).json({ message: "Not authorized" });
@@ -94,6 +100,11 @@ export const deleteTodo = async (req: Request, res: Response) => {
 export const clearCompletedTodos = async (req: Request, res: Response) => {
   try {
     const userId = req.user?.userId;
+    console.log(
+      "DELETE /api/todos userId =",
+      userId,
+      "action = clearCompleted",
+    );
 
     if (!userId) {
       return res.status(401).json({ message: "Not authorized" });

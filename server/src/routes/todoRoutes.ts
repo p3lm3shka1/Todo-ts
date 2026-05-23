@@ -15,7 +15,7 @@ router.use(authMiddleware);
 
 router.get("/", getTodos);
 router.post("/", createTodo);
-router.put("/:id", updateTodo);
+router.patch("/:id", updateTodo);
 router.delete("/:id", deleteTodo);
 router.delete("/", clearCompletedTodos);
 
