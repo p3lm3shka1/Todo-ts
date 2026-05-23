@@ -1,12 +1,25 @@
 import { API_URL } from "./config";
 
-type userRequest = {
+type AuthPayload = {
   email: string;
   password: string;
 };
 
-export const signupRequest = async ({ email, password }: userRequest) => {
-  const res = await fetch(`${API_URL}/api/auth/signup`, {
+async function parseResponse(res: Response) {
+  const text = await res.text();
+
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    throw new Error(`Expected JSON, got: ${text.slice(0, 120)}`);
+  }
+}
+
+export const signupRequest = async ({ email, password }: AuthPayload) => {
+  const url = `${API_URL}/api/auth/signup`;
+  console.log("signup url =", url);
+
+  const res = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,7 +27,7 @@ export const signupRequest = async ({ email, password }: userRequest) => {
     body: JSON.stringify({ email, password }),
   });
 
-  const data = await res.json();
+  const data = await parseResponse(res);
 
   if (!res.ok) {
     throw new Error(data.message || "Signup failed");
@@ -23,8 +36,11 @@ export const signupRequest = async ({ email, password }: userRequest) => {
   return data;
 };
 
-export const loginRequest = async ({ email, password }: userRequest) => {
-  const res = await fetch(`${API_URL}/api/auth/login`, {
+export const loginRequest = async ({ email, password }: AuthPayload) => {
+  const url = `${API_URL}/api/auth/login`;
+  console.log("login url =", url);
+
+  const res = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +48,7 @@ export const loginRequest = async ({ email, password }: userRequest) => {
     body: JSON.stringify({ email, password }),
   });
 
-  const data = await res.json();
+  const data = await parseResponse(res);
 
   if (!res.ok) {
     throw new Error(data.message || "Login failed");
