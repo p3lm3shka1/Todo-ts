@@ -1,0 +1,138 @@
+@use "./variables" as *;
+
+.auth-wrapper {
+  margin-top: -15rem;
+}
+
+.auth-card {
+  box-shadow: 0 35px 50px -15px rgba(0, 0, 0, 0.35);
+}
+
+.auth-card__inner {
+  padding: $space-2;
+}
+
+.auth-title {
+  margin: 0 0 $space-1-5;
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: $font-w-700;
+  line-height: 1.2;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-0-5;
+}
+
+.auth-field__label {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: $font-w-700;
+  letter-spacing: 0.02em;
+}
+
+.auth-field input {
+  width: 100%;
+  height: 64px;
+  padding: 0 $space-1-5;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  outline: none;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-family: $font-primary;
+  font-size: 18px;
+  line-height: 1;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(58, 123, 253, 0.15);
+  }
+}
+
+.auth-submit {
+  margin-top: $space-0-5;
+  height: 56px;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: $font-primary;
+  font-size: 16px;
+  font-weight: $font-w-700;
+  color: $white;
+  background: var(--accent);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    opacity: 0.92;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.auth-error {
+  margin: 0;
+  color: #ff6b6b;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.auth-switch {
+  margin: $space-1-5 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-align: center;
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: $font-w-700;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .auth-card__inner {
+    padding: $space-1-5;
+  }
+
+  .auth-title {
+    font-size: 20px;
+  }
+
+  .auth-field input {
+    height: 56px;
+    font-size: 16px;
+  }
+
+  .auth-submit {
+    height: 52px;
+  }
+}

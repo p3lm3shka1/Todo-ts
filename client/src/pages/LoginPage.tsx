@@ -1,18 +1,29 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { loginRequest } from "../api/auth";
 import { saveAuth } from "../utils/auth";
+import ThemeToggle from "../components/ThemeToggle";
+import Attribution from "../components/Attribution";
+import useLocalStorage from "../hooks/useLocalStorage";
+
+import type { Theme } from "../types/ui";
 
 import "../App.scss";
 
 function LoginPage() {
   const navigate = useNavigate();
 
+  const [theme, setTheme] = useLocalStorage<Theme>("theme", "dark");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -35,37 +46,58 @@ function LoginPage() {
   };
 
   return (
-    <section>
-      <h1>Log in</h1>
+    <main className={`app ${theme}`}>
+      <section className="hero" />
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+      <section className="todo-wrapper auth-wrapper">
+        <header className="todo-header">
+          <h1>TODO</h1>
+          <ThemeToggle theme={theme} onToggle={toggleTheme} />
+        </header>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="todo-card auth-card">
+          <div className="auth-card__inner">
+            <h2 className="auth-title">Welcome back</h2>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Log in"}
-        </button>
-      </form>
+            <form className="auth-form" onSubmit={handleSubmit}>
+              <label className="auth-field">
+                <span className="auth-field__label">Email</span>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </label>
 
-      {error && <p>{error}</p>}
+              <label className="auth-field">
+                <span className="auth-field__label">Password</span>
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </label>
 
-      <p>
-        No account yet? <Link to="/signup">Sign up</Link>
-      </p>
-    </section>
+              {error && <p className="auth-error">{error}</p>}
+
+              <button className="auth-submit" type="submit" disabled={loading}>
+                {loading ? "Logging in..." : "Log in"}
+              </button>
+            </form>
+
+            <p className="auth-switch">
+              No account yet? <Link to="/signup">Sign up</Link>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <Attribution />
+    </main>
   );
 }
 
