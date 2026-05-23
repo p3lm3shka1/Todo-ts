@@ -7,5 +7,5 @@ export async function getHealth() {
     throw new Error(`Health check failed: ${res.status}`);
   }
 
-  return (await res.json()) as { ok: boolean };
+  return (await res.json()) as { status: string };
 }

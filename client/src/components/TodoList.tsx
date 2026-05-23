@@ -14,13 +14,13 @@ const TodoList = ({ todos, onToggle, onDelete }: TodoListProps) => {
     <ul className="todo-list todo__list">
       {todos.map((todo) => (
         <li
-          key={todo.id}
+          key={todo._id}
           className={`todo-item todo__item ${todo.completed ? "completed todo__item--completed" : ""}`}
         >
           <button
             type="button"
             className="check-btn todo__check"
-            onClick={() => onToggle(todo.id)}
+            onClick={() => onToggle(todo._id)}
             aria-label={todo.completed ? "Mark as active" : "Mark as completed"}
           >
             {todo.completed && <img src={ICON_CHECK} alt="Checked" />}
@@ -31,7 +31,7 @@ const TodoList = ({ todos, onToggle, onDelete }: TodoListProps) => {
           <button
             type="button"
             className="delete-btn todo__delete"
-            onClick={() => onDelete(todo.id)}
+            onClick={() => onDelete(todo._id)}
             aria-label="Delete todo"
           >
             <img src={ICON_CROSS} alt="Delete" />

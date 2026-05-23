@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import TodoInput from "../components/TodoInput";
 import TodoList from "../components/TodoList";
@@ -18,18 +19,27 @@ import {
   deleteTodoApi,
   clearCompletedApi,
 } from "../api/todos";
+import { clearAuth } from "../utils/auth";
 
 const TodoApp = () => {
+  const navigate = useNavigate();
+
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useLocalStorage<Filter>("filter", "all");
   const [theme, setTheme] = useLocalStorage<Theme>("theme", "dark");
 
-  // load todos
   useEffect(() => {
     fetchTodos()
       .then(setTodos)
-      .catch((e) => console.error("Failed to load todos:", e));
-  }, []);
+      .catch((e) => {
+        console.error("Failed to load todos:", e);
+
+        if (e instanceof Error && e.message.includes("401")) {
+          clearAuth();
+          navigate("/login");
+        }
+      });
+  }, [navigate]);
 
   const filteredTodos = useMemo(() => {
     if (filter === "active") return todos.filter((t) => !t.completed);
@@ -54,32 +64,30 @@ const TodoApp = () => {
   };
 
   const toggleTodo = async (id: string) => {
-    const current = todos.find((t) => t.id === id);
+    const current = todos.find((t) => t._id === id);
     if (!current) return;
 
-    // optimistic update
     setTodos((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)),
+      prev.map((t) => (t._id === id ? { ...t, completed: !t.completed } : t)),
     );
 
     try {
       const updated = await patchTodo(id, { completed: !current.completed });
-      setTodos((prev) => prev.map((t) => (t.id === id ? updated : t)));
+      setTodos((prev) => prev.map((t) => (t._id === id ? updated : t)));
     } catch (e) {
       console.error("Failed to toggle todo:", e);
-      // rollback
+
       setTodos((prev) =>
         prev.map((t) =>
-          t.id === id ? { ...t, completed: current.completed } : t,
+          t._id === id ? { ...t, completed: current.completed } : t,
         ),
       );
     }
   };
 
   const deleteTodo = async (id: string) => {
-    // optimistic
     const prev = todos;
-    setTodos((p) => p.filter((t) => t.id !== id));
+    setTodos((p) => p.filter((t) => t._id !== id));
 
     try {
       await deleteTodoApi(id);
@@ -105,6 +113,11 @@ const TodoApp = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
+  const logout = () => {
+    clearAuth();
+    navigate("/login");
+  };
+
   return (
     <main className={`app ${theme}`}>
       <section className="hero" />
@@ -112,7 +125,10 @@ const TodoApp = () => {
       <section className="todo-wrapper">
         <header className="todo-header">
           <h1>TODO</h1>
-          <ThemeToggle theme={theme} onToggle={toggleTheme} />
+          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+            <button onClick={logout}>Logout</button>
+            <ThemeToggle theme={theme} onToggle={toggleTheme} />
+          </div>
         </header>
 
         <TodoInput onAdd={addTodo} />
