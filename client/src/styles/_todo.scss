@@ -6,11 +6,15 @@
   padding: 0;
   cursor: pointer;
   font: inherit;
-  color: var(--bg-card);
+  color: inherit;
 }
 
 .theme-btn {
   @extend %btn-reset;
+
+  &:hover {
+    color: var(--bg-card);
+  }
 }
 
 .todo-input,
