@@ -88,3 +88,22 @@
     display: none;
   }
 }
+
+@media (max-width: 768px) {
+  .auth-card__inner {
+    padding: $space-1-5;
+  }
+
+  .auth-title {
+    font-size: 20px;
+  }
+
+  .auth-field input {
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .auth-submit {
+    height: 50px;
+  }
+}
