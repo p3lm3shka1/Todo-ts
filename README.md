@@ -1,77 +1,112 @@
-# Todo App (TypeScript)
+# Todo App
 
-A simple **Todo List** project built for practice and portfolio purposes.
+A full-stack Todo application with authentication and persistent storage, built with React, TypeScript, Node.js, Express, and MongoDB.
 
-Live (Production): https://todo-ts-prod.vercel.app
+Users can create an account, log in, and manage their own personal todo list.  
+All tasks are stored in MongoDB, so data is saved between sessions.
 
-This repository contains two parts:
-
-- **`client/`** — Frontend built with **Vite**, **React**, **TypeScript**, and **SCSS**
-- **`server/`** — Backend API built with **Node.js + Express** (planned deployment on **Render**)
-
----
-
-## Project Structure
-
-```text
-Todo-ts/
-  client/   # Vite + React + TypeScript + SCSS
-  server/   # Node.js + Express API (Render)
+```
+> Note: The backend is hosted on Render, so the first request may take a few seconds if the service is waking up.
 ```
 
----
+## Live Demo
 
-## Features (Client)
+- Frontend: `https://todo-ts-prod.vercel.app`
+- Backend API: `https://todo-ts-vr5s.onrender.com`
 
-- Create new todos
-- Mark todos as completed
+## Features
+
+- User registration
+- User login
+- JWT-based authentication
+- Protected routes
+- Create todos
+- Complete and uncomplete todos
 - Delete todos
-- Filter todos: **All / Active / Completed**
-- Theme switching (**Dark / Light**)
-- Local persistence via `localStorage`
-
-> The frontend is being migrated/refactored to TypeScript (TSX) and improved structure.
-
----
+- Clear completed todos
+- Filter by all / active / completed
+- Light and dark theme toggle
+- Persistent storage with MongoDB
+- Personal todos for each user account
 
 ## Tech Stack
 
-### Client
-- Vite
+### Frontend
 - React
 - TypeScript
+- Vite
 - SCSS
+- React Router
 
-### Server
+### Backend
 - Node.js
 - Express
-- Deployment: Render
+- MongoDB
+- Mongoose
+- JWT
+- CORS
 
----
+## Authentication
 
-## Getting Started (Client)
+Users can:
+- sign up for a new account
+- log in with existing credentials
+- access only their own todos
 
-### 1) Install dependencies
+Authentication is handled with JWT, and protected routes require a valid token.
+
+## Database
+
+This project uses **MongoDB** to store:
+- users
+- todos
+
+Each todo is connected to a specific user, so every account has its own private task list.
+
+## Project Structure
+
+- `client/` — frontend application
+- `server/` — backend API, authentication, and database logic
+
+## Running Locally
+
+### Client
 ```bash
 cd client
 npm install
-```
-
-### 2) Run the dev server
-```bash
 npm run dev
 ```
 
-Then open the URL shown in your terminal (usually `http://localhost:5173`).
+### Server
+```bash
+cd server
+npm install
+npm run dev
+```
 
----
+## Environment Variables
 
-## Server (Express + Render)
+### Client
+```env
+VITE_API_URL=http://localhost:3000
+```
 
-The backend is located in `server/` and is intended to be deployed as a **Render Web Service**.
+### Server
+```env
+PORT=3000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+CLIENT_URL=http://localhost:5173
+```
 
-Once the API is ready, the client will be configured to use a production API URL (Render) via environment variables (e.g. `VITE_API_URL`).
+## Future Improvements
 
----
+- Edit todo text
+- Better form validation
+- Toast notifications
+- Improved loading and error states
+- Better mobile UX
 
-This project is for portfolio purposes.
+## Author
+
+Created by [Vitalij Lazarev](https://github.com/p3lm3shka1)
