@@ -32,15 +32,23 @@ All tasks are stored in MongoDB, so data is saved between sessions.
 ## Tech Stack
 
 ### Frontend
+<<<<<<< HEAD
 
+=======
+>>>>>>> c63e374fe67b61279a7f3fec22cf92fce56cb8ac
 - React
 - TypeScript
 - Vite
 - SCSS
 - React Router
+<<<<<<< HEAD
 
 ### Backend
 
+=======
+
+### Backend
+>>>>>>> c63e374fe67b61279a7f3fec22cf92fce56cb8ac
 - Node.js
 - Express
 - MongoDB
@@ -51,6 +59,7 @@ All tasks are stored in MongoDB, so data is saved between sessions.
 ## Authentication
 
 Users can:
+<<<<<<< HEAD
 
 - sign up for a new account
 - log in with existing credentials
@@ -76,6 +85,30 @@ Each todo is connected to a specific user, so every account has its own private 
 
 ### Client
 
+=======
+- sign up for a new account
+- log in with existing credentials
+- access only their own todos
+
+Authentication is handled with JWT, and protected routes require a valid token.
+
+## Database
+
+This project uses **MongoDB** to store:
+- users
+- todos
+
+Each todo is connected to a specific user, so every account has its own private task list.
+
+## Project Structure
+
+- `client/` — frontend application
+- `server/` — backend API, authentication, and database logic
+
+## Running Locally
+
+### Client
+>>>>>>> c63e374fe67b61279a7f3fec22cf92fce56cb8ac
 ```bash
 cd client
 npm install
@@ -83,6 +116,7 @@ npm run dev
 ```
 
 ### Server
+<<<<<<< HEAD
 
 ```bash
 cd server
@@ -115,6 +149,37 @@ CLIENT_URL=http://localhost:5173
 - Improved loading and error states
 - Better mobile UX
 
+=======
+```bash
+cd server
+npm install
+npm run dev
+```
+
+## Environment Variables
+
+### Client
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+### Server
+```env
+PORT=3000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+CLIENT_URL=http://localhost:5173
+```
+
+## Future Improvements
+
+- Edit todo text
+- Better form validation
+- Toast notifications
+- Improved loading and error states
+- Better mobile UX
+
+>>>>>>> c63e374fe67b61279a7f3fec22cf92fce56cb8ac
 ## Author
 
 Created by [Vitalij Lazarev](https://github.com/p3lm3shka1)
