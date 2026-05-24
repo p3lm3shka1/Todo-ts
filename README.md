@@ -11,8 +11,8 @@ All tasks are stored in MongoDB, so data is saved between sessions.
 
 ## Live Demo
 
-- Frontend: `https://todo-ts-prod.vercel.app`
-- Backend API: `https://todo-ts-vr5s.onrender.com`
+- Frontend: https://todo-ts-prod.vercel.app
+- Backend API: https://todo-ts-vr5s.onrender.com
 
 ## Features
 
