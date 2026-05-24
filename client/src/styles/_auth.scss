@@ -129,7 +129,7 @@
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 999px;
   background: transparent;
-  color: $white;
+  color: var(--bg-card);
   font-size: 14px;
   font-weight: $font-w-700;
   cursor: pointer;
