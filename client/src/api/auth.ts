@@ -17,7 +17,6 @@ async function parseResponse(res: Response) {
 
 export const signupRequest = async ({ email, password }: AuthPayload) => {
   const url = `${API_URL}/api/auth/signup`;
-  console.log("signup url =", url);
 
   const res = await fetch(url, {
     method: "POST",
@@ -38,7 +37,6 @@ export const signupRequest = async ({ email, password }: AuthPayload) => {
 
 export const loginRequest = async ({ email, password }: AuthPayload) => {
   const url = `${API_URL}/api/auth/login`;
-  console.log("login url =", url);
 
   const res = await fetch(url, {
     method: "POST",

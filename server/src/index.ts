@@ -14,7 +14,45 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (_req, res) => {
-  res.send("IT'S ALIVE!");
+  res.send(`
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: rgba(211, 211, 211, 0.2);
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      h1 {
+        color: rgb(21, 0, 255);
+      }
+      p {
+        font-size: 1.2em;
+        margin: 1rem 0;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        background-color: rgb(21, 0, 255);
+        padding: 1rem 1.5rem;
+        margin: 1rem 0;
+        border-radius: 5px;
+        color: rgb(255, 255, 255);
+      }
+    </style>
+    <h1>IT'S ALIVE!</h1>
+    <p>Render has a waking up time, so can take a few seconds to respond initially.</p>
+    <ul>
+      <li>GET /api/health - Check API health</li>
+      
+    </ul>
+  `);
 });
 
 app.get("/api/health", (_req, res) => {

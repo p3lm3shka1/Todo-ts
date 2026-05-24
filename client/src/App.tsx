@@ -11,9 +11,7 @@ import "./App.scss";
 
 function App() {
   useEffect(() => {
-    getHealth()
-      .then((data) => console.log("API health:", data))
-      .catch((err) => console.error(err));
+    getHealth().catch((err) => console.error(err));
   }, []);
 
   return (
