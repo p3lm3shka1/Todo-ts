@@ -125,8 +125,8 @@ const TodoApp = () => {
       <section className="todo-wrapper">
         <header className="todo-header">
           <h1>TODO</h1>
-          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-            <button onClick={logout} className="auth-logout">
+          <div className="todo-header__actions">
+            <button className="auth-logout" onClick={logout}>
               Logout
             </button>
             <ThemeToggle theme={theme} onToggle={toggleTheme} />

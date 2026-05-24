@@ -117,16 +117,32 @@
   }
 }
 
+.todo-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .auth-logout {
-  border: 0;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
   background: transparent;
-  color: var(--text-primary);
+  color: $white;
   font-size: 14px;
+  font-weight: $font-w-700;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
 
   &:hover {
-    color: var(--accent);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: $white;
   }
 }
 
