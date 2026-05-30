@@ -140,7 +140,6 @@ CLIENT_URL=http://localhost:5173
 - Improved loading and error states
 - Better mobile UX
 
-=======
 ```bash
 cd server
 npm install
