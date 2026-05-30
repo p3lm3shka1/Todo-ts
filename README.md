@@ -32,23 +32,15 @@ All tasks are stored in MongoDB, so data is saved between sessions.
 ## Tech Stack
 
 ### Frontend
-<<<<<<< HEAD
 
-=======
->>>>>>> c63e374fe67b61279a7f3fec22cf92fce56cb8ac
 - React
 - TypeScript
 - Vite
 - SCSS
 - React Router
-<<<<<<< HEAD
-
+  
 ### Backend
 
-=======
-
-### Backend
->>>>>>> c63e374fe67b61279a7f3fec22cf92fce56cb8ac
 - Node.js
 - Express
 - MongoDB
@@ -59,7 +51,6 @@ All tasks are stored in MongoDB, so data is saved between sessions.
 ## Authentication
 
 Users can:
-<<<<<<< HEAD
 
 - sign up for a new account
 - log in with existing credentials
@@ -85,7 +76,7 @@ Each todo is connected to a specific user, so every account has its own private 
 
 ### Client
 
-=======
+
 - sign up for a new account
 - log in with existing credentials
 - access only their own todos
@@ -108,7 +99,7 @@ Each todo is connected to a specific user, so every account has its own private 
 ## Running Locally
 
 ### Client
->>>>>>> c63e374fe67b61279a7f3fec22cf92fce56cb8ac
+
 ```bash
 cd client
 npm install
@@ -116,7 +107,7 @@ npm run dev
 ```
 
 ### Server
-<<<<<<< HEAD
+
 
 ```bash
 cd server
@@ -179,7 +170,6 @@ CLIENT_URL=http://localhost:5173
 - Improved loading and error states
 - Better mobile UX
 
->>>>>>> c63e374fe67b61279a7f3fec22cf92fce56cb8ac
 ## Author
 
 Created by [Vitalij Lazarev](https://github.com/p3lm3shka1)
