@@ -12,14 +12,8 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import type { Todo, Filter } from "../types/todo";
 import type { Theme } from "../types/ui";
 
-import {
-  fetchTodos,
-  createTodo,
-  patchTodo,
-  deleteTodoApi,
-  clearCompletedApi,
-} from "../api/todos";
-import { clearAuth } from "../utils/auth";
+import { clearCompletedApi, createTodo, deleteTodoApi, fetchTodos, patchTodo } from "../api/todos";
+import { logoutRequest } from "../api/auth";
 
 const TodoApp = () => {
   const navigate = useNavigate();
@@ -35,7 +29,7 @@ const TodoApp = () => {
         console.error("Failed to load todos:", e);
 
         if (e instanceof Error && e.message.includes("401")) {
-          clearAuth();
+          await logoutRequest();
           navigate("/login");
         }
       });
@@ -113,8 +107,8 @@ const TodoApp = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
-  const logout = () => {
-    clearAuth();
+  const logout = async () => {
+    await logoutRequest();
     navigate("/login");
   };
 

@@ -56,7 +56,11 @@ export const updateTodo = async (req: Request, res: Response) => {
     }
 
     if (typeof req.body?.text === "string") {
-      todo.text = req.body.text.trim();
+      const trimmed = req.body.text.trim();
+      if (trimmed.length > 100) {
+        return res.status(400).json({ message: "Text must be 100 characters or less" });
+      }
+      todo.text = trimmed;
     }
 
     if (typeof req.body?.completed === "boolean") {

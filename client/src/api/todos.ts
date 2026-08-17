@@ -1,6 +1,5 @@
 import { API_URL } from "./config";
 import type { Todo } from "../types/todo";
-import { getToken } from "../utils/auth";
 
 async function json<T>(res: Response): Promise<T> {
   if (!res.ok) {
@@ -11,18 +10,9 @@ async function json<T>(res: Response): Promise<T> {
   return (await res.json()) as T;
 }
 
-function authHeaders() {
-  const token = getToken();
-
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-}
-
 export async function fetchTodos(): Promise<Todo[]> {
   const res = await fetch(`${API_URL}/api/todos`, {
-    headers: authHeaders(),
+    credentials: "include",
   });
 
   return json<Todo[]>(res);
@@ -31,7 +21,8 @@ export async function fetchTodos(): Promise<Todo[]> {
 export async function createTodo(text: string): Promise<Todo> {
   const res = await fetch(`${API_URL}/api/todos`, {
     method: "POST",
-    headers: authHeaders(),
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
     body: JSON.stringify({ text }),
   });
 
@@ -44,7 +35,8 @@ export async function patchTodo(
 ): Promise<Todo> {
   const res = await fetch(`${API_URL}/api/todos/${id}`, {
     method: "PATCH",
-    headers: authHeaders(),
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
     body: JSON.stringify(patch),
   });
 
@@ -54,7 +46,7 @@ export async function patchTodo(
 export async function deleteTodoApi(id: string): Promise<void> {
   const res = await fetch(`${API_URL}/api/todos/${id}`, {
     method: "DELETE",
-    headers: authHeaders(),
+    credentials: "include",
   });
 
   if (!res.ok && res.status !== 204) {
@@ -66,7 +58,7 @@ export async function deleteTodoApi(id: string): Promise<void> {
 export async function clearCompletedApi(): Promise<void> {
   const res = await fetch(`${API_URL}/api/todos`, {
     method: "DELETE",
-    headers: authHeaders(),
+    credentials: "include",
   });
 
   if (!res.ok && res.status !== 204) {

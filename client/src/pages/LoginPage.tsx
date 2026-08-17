@@ -3,7 +3,6 @@ import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { loginRequest } from "../api/auth";
-import { saveAuth } from "../utils/auth";
 import ThemeToggle from "../components/ThemeToggle";
 import Attribution from "../components/Attribution";
 import useLocalStorage from "../hooks/useLocalStorage";
@@ -31,8 +30,7 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const data = await loginRequest({ email, password });
-      saveAuth(data.token, data.user);
+      await loginRequest({ email, password });
       navigate("/todos");
     } catch (err) {
       if (err instanceof Error) {
