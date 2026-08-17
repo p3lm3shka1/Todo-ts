@@ -17,6 +17,7 @@ function SignupPage() {
   const [theme, setTheme] = useLocalStorage<Theme>("theme", "dark");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -76,6 +77,17 @@ function SignupPage() {
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </label>
+
+              <label className="auth-field">
+                <span className="auth-field__label">Confirm Password</span>
+                <input
+                  type="password"
+                  placeholder="Confirm your password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                 />
               </label>
