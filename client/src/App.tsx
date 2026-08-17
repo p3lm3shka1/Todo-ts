@@ -11,7 +11,11 @@ import "./App.scss";
 
 function App() {
   useEffect(() => {
-    getHealth().catch(() => undefined);
+    getHealth().catch((err) => {
+      if (import.meta.env.DEV) {
+        console.error(err);
+      }
+    });
   }, []);
 
   return (
