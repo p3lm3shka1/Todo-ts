@@ -14,7 +14,10 @@ function App() {
     getHealth().catch((err) => {
       if (import.meta.env.DEV) {
         console.error(err);
+        return;
       }
+
+      console.warn("API health check failed");
     });
   }, []);
 
