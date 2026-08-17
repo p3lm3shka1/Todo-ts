@@ -11,7 +11,7 @@ import "./App.scss";
 
 function App() {
   useEffect(() => {
-    getHealth().catch((err) => console.error(err));
+    getHealth().catch(() => undefined);
   }, []);
 
   return (
