@@ -11,7 +11,14 @@ import "./App.scss";
 
 function App() {
   useEffect(() => {
-    getHealth().catch((err) => console.error(err));
+    getHealth().catch((err) => {
+      if (import.meta.env.DEV) {
+        console.error(err);
+        return;
+      }
+
+      console.warn("API health check failed");
+    });
   }, []);
 
   return (
