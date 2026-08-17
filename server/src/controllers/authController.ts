@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import type { CookieOptions } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import validator from "validator";
@@ -7,6 +8,16 @@ import User from "../models/User.js";
 
 const ACCESS_TOKEN_MAX_AGE = 15 * 60;
 const REFRESH_TOKEN_MAX_AGE = 7 * 24 * 60 * 60;
+
+const isProduction = process.env.NODE_ENV === "production";
+
+const getCookieOptions = (maxAge: number, path?: string): CookieOptions => ({
+  httpOnly: true,
+  secure: isProduction,
+  sameSite: isProduction ? "none" : "strict",
+  maxAge,
+  ...(path ? { path } : {}),
+});
 
 const createAccessToken = (userId: string) => {
   const secret = process.env.JWT_SECRET;
@@ -24,18 +35,10 @@ const setAuthCookies = (res: Response, userId: string) => {
   const accessToken = createAccessToken(userId);
   const refreshToken = createRefreshToken(userId);
 
-  res.cookie("accessToken", accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: ACCESS_TOKEN_MAX_AGE * 1000,
-  });
+  res.cookie("accessToken", accessToken, getCookieOptions(ACCESS_TOKEN_MAX_AGE * 1000));
 
   res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: REFRESH_TOKEN_MAX_AGE * 1000,
+    ...getCookieOptions(REFRESH_TOKEN_MAX_AGE * 1000),
     path: "/api/auth/refresh",
   });
 };
@@ -122,13 +125,8 @@ export const refresh = async (req: Request, res: Response) => {
 };
 
 export const logout = (_req: Request, res: Response) => {
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict" as const,
-  };
-  res.clearCookie("accessToken", cookieOptions);
-  res.clearCookie("refreshToken", { ...cookieOptions, path: "/api/auth/refresh" });
+  res.clearCookie("accessToken", getCookieOptions(0));
+  res.clearCookie("refreshToken", getCookieOptions(0, "/api/auth/refresh"));
   return res.status(200).json({ message: "Logged out" });
 };
 

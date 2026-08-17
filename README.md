@@ -86,6 +86,8 @@ Copy `.env.example` to `.env` in both `client/` and `server/` and fill in your v
 | `JWT_REFRESH_SECRET` | Secret for signing refresh tokens |
 | `CLIENT_URL` | Frontend URL (for CORS) |
 
+When the frontend and backend run on different domains in production (for example Vercel + Render), the backend must allow credentialed CORS for the exact `CLIENT_URL`, and auth cookies must be issued as `Secure` with `SameSite=None`.
+
 ## Author
 
 Created by [Vitalij Lazarev](https://github.com/p3lm3shka1)
