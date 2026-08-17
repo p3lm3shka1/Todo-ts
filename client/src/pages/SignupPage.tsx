@@ -37,6 +37,12 @@ function SignupPage() {
     setLoading(true);
 
     try {
+      if (password !== confirmPassword) {
+        setError("Passwords do not match");
+        setLoading(false);
+        return;
+      }
+
       await signupRequest({ email, password });
       navigate("/login");
     } catch (err) {
@@ -91,6 +97,7 @@ function SignupPage() {
                 <span className="auth-field__label">Confirm Password</span>
                 <input
                   type="password"
+                  placeholder="Enter your password"
                   placeholder="Confirm your password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
