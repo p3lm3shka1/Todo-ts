@@ -12,7 +12,13 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import type { Todo, Filter } from "../types/todo";
 import type { Theme } from "../types/ui";
 
-import { clearCompletedApi, createTodo, deleteTodoApi, fetchTodos, patchTodo } from "../api/todos";
+import {
+  clearCompletedApi,
+  createTodo,
+  deleteTodoApi,
+  fetchTodos,
+  patchTodo,
+} from "../api/todos";
 import { logoutRequest } from "../api/auth";
 
 const TodoApp = () => {
@@ -25,7 +31,7 @@ const TodoApp = () => {
   useEffect(() => {
     fetchTodos()
       .then(setTodos)
-      .catch((e) => {
+      .catch(async (e) => {
         console.error("Failed to load todos:", e);
 
         if (e instanceof Error && e.message.includes("401")) {
