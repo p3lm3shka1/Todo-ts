@@ -20,16 +20,15 @@ export const signupRequest = async ({ email, password }: AuthPayload) => {
 
   const res = await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
     body: JSON.stringify({ email, password }),
   });
 
   const data = await parseResponse(res);
 
   if (!res.ok) {
-    throw new Error(data.message || "Signup failed");
+    throw new Error(data.error || "Signup failed");
   }
 
   return data;
@@ -40,17 +39,23 @@ export const loginRequest = async ({ email, password }: AuthPayload) => {
 
   const res = await fetch(url, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
     body: JSON.stringify({ email, password }),
   });
 
   const data = await parseResponse(res);
 
   if (!res.ok) {
-    throw new Error(data.message || "Login failed");
+    throw new Error(data.error || "Login failed");
   }
 
   return data;
+};
+
+export const logoutRequest = async () => {
+  await fetch(`${API_URL}/api/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
 };
