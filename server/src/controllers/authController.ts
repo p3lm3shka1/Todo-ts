@@ -94,7 +94,7 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const refresh = (req: Request, res: Response) => {
+export const refresh = async (req: Request, res: Response) => {
   try {
     const token = req.cookies?.refreshToken;
     if (!token) {
@@ -107,7 +107,13 @@ export const refresh = (req: Request, res: Response) => {
     }
 
     const decoded = jwt.verify(token, secret) as { userId: string };
-    setAuthCookies(res, decoded.userId);
+
+    const user = await User.findById(decoded.userId).select("_id");
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    setAuthCookies(res, user._id.toString());
 
     return res.status(200).json({ message: "Refreshed" });
   } catch {
@@ -116,12 +122,13 @@ export const refresh = (req: Request, res: Response) => {
 };
 
 export const logout = (_req: Request, res: Response) => {
-  res.clearCookie("accessToken", { httpOnly: true, sameSite: "strict" });
-  res.clearCookie("refreshToken", {
+  const cookieOptions = {
     httpOnly: true,
-    sameSite: "strict",
-    path: "/api/auth/refresh",
-  });
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict" as const,
+  };
+  res.clearCookie("accessToken", cookieOptions);
+  res.clearCookie("refreshToken", { ...cookieOptions, path: "/api/auth/refresh" });
   return res.status(200).json({ message: "Logged out" });
 };
 

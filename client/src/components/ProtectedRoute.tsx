@@ -33,7 +33,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     };
   }, []);
 
-  if (status === "loading") return null;
+  if (status === "loading") return <main className="app dark" />;
   if (status === "redirect") return <Navigate to="/login" replace />;
   return <>{children}</>;
 };
