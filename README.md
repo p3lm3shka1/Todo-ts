@@ -2,12 +2,9 @@
 
 A full-stack Todo application with authentication and persistent storage, built with React, TypeScript, Node.js, Express, and MongoDB.
 
-Users can create an account, log in, and manage their own personal todo list.  
-All tasks are stored in MongoDB, so data is saved between sessions.
+Users can create an account, log in, and manage their own personal todo list. All tasks are stored in MongoDB, so data is saved between sessions.
 
-```
 > Note: The backend is hosted on Render, so the first request may take a few seconds if the service is waking up.
-```
 
 ## Live Demo
 
@@ -16,18 +13,15 @@ All tasks are stored in MongoDB, so data is saved between sessions.
 
 ## Features
 
-- User registration
-- User login
-- JWT-based authentication
+- User registration and login
+- Cookie-based authentication with access and refresh tokens
 - Protected routes
-- Create todos
-- Complete and uncomplete todos
-- Delete todos
+- Create, complete, and delete todos
 - Clear completed todos
 - Filter by all / active / completed
 - Light and dark theme toggle
 - Persistent storage with MongoDB
-- Personal todos for each user account
+- Personal todos per user account
 
 ## Tech Stack
 
@@ -38,58 +32,16 @@ All tasks are stored in MongoDB, so data is saved between sessions.
 - Vite
 - SCSS
 - React Router
-  
+
 ### Backend
 
 - Node.js
 - Express
-- MongoDB
-- Mongoose
+- MongoDB / Mongoose
 - JWT
-- CORS
-
-## Authentication
-
-Users can:
-
-- sign up for a new account
-- log in with existing credentials
-- access only their own todos
-
-Authentication is handled with JWT, and protected routes require a valid token.
-
-## Database
-
-This project uses **MongoDB** to store:
-
-- users
-- todos
-
-Each todo is connected to a specific user, so every account has its own private task list.
-
-## Project Structure
-
-- `client/` — frontend application
-- `server/` — backend API, authentication, and database logic
-
-## Running Locally
-
-### Client
-
-
-- sign up for a new account
-- log in with existing credentials
-- access only their own todos
-
-Authentication is handled with JWT, and protected routes require a valid token.
-
-## Database
-
-This project uses **MongoDB** to store:
-- users
-- todos
-
-Each todo is connected to a specific user, so every account has its own private task list.
+- bcrypt
+- cookie-parser
+- express-rate-limit
 
 ## Project Structure
 
@@ -108,7 +60,6 @@ npm run dev
 
 ### Server
 
-
 ```bash
 cd server
 npm install
@@ -117,57 +68,23 @@ npm run dev
 
 ## Environment Variables
 
-### Client
+Copy `.env.example` to `.env` in both `client/` and `server/` and fill in your values.
 
-```env
-VITE_API_URL=http://localhost:3000
-```
+### Client (`client/.env`)
 
-### Server
+| Variable | Description |
+|---|---|
+| `VITE_API_URL` | URL of the backend API |
 
-```env
-PORT=3000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-CLIENT_URL=http://localhost:5173
-```
+### Server (`server/.env`)
 
-## Future Improvements
-
-- Edit todo text
-- Better form validation
-- Toast notifications
-- Improved loading and error states
-- Better mobile UX
-
-```bash
-cd server
-npm install
-npm run dev
-```
-
-## Environment Variables
-
-### Client
-```env
-VITE_API_URL=http://localhost:3000
-```
-
-### Server
-```env
-PORT=3000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-CLIENT_URL=http://localhost:5173
-```
-
-## Future Improvements
-
-- Edit todo text
-- Better form validation
-- Toast notifications
-- Improved loading and error states
-- Better mobile UX
+| Variable | Description |
+|---|---|
+| `PORT` | Port the server listens on |
+| `MONGO_URI` | MongoDB connection string |
+| `JWT_SECRET` | Secret for signing access tokens |
+| `JWT_REFRESH_SECRET` | Secret for signing refresh tokens |
+| `CLIENT_URL` | Frontend URL (for CORS) |
 
 ## Author
 
